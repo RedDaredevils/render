@@ -4,37 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Marks Prediction</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Page header */
+        h1 {
+            font-size: 3em;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Container for the form */
+        form {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        /* Form elements styling */
+        label {
+            font-size: 1.2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select, input[type="text"], input[type="submit"] {
+            font-size: 1em;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+            transform: scale(1.05);
+        }
+
+        input[type="radio"] {
+            transform: scale(1.2);
+            margin-right: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .radio-group label {
+            font-size: 1em;
+            display: inline-block;
+        }
+
+        .header-image {
+            display: block;
+            margin: 20px auto;
+            width: 120px;
+        }
+
+        /* Styling for gradient background behind labels */
+        .form-section {
+            padding: 15px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            color: #000;
+            text-shadow: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Student Marks Prediction</h1>
+    <h1>🎓 Student Marks Prediction</h1>
+    <img src="https://cdn-icons-png.flaticon.com/512/201/201818.png" alt="Student Icon" class="header-image">
 
-    <!-- Form for input -->
     <form action="/predict" method="POST">
-        <label for="G2">Grade 2:</label>
-        <input type="text" id="G2" name="G2" required><br><br>
+        <div class="form-section">
+            <label for="G2">🎯 Grade 2 (G2):</label>
+            <input type="text" id="G2" name="G2" placeholder="Enter grade (e.g., 15)" required>
+        </div>
+        
+        <div class="form-section">
+            <label for="failures">🔁 Failures (Past Class Failures):</label>
+            <select id="failures" name="failures" required>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+            </select>
+        </div>
 
-        <label for="failures">Failures:</label>
-        <input type="text" id="failures" name="failures" required><br><br>
+        <div class="form-section">
+            <label for="absences">🚸 Absences:</label>
+            <input type="text" id="absences" name="absences" placeholder="Enter absences (0–93)" required>
+        </div>
+        
+        <div class="form-section">
+            <label for="Fedu">👨‍🎓 Father's Education Level:</label>
+            <select id="Fedu" name="Fedu" required>
+                <option value="0">None</option>
+                <option value="1">Primary (4th grade)</option>
+                <option value="2">5th to 9th grade</option>
+                <option value="3">Secondary education</option>
+                <option value="4">Higher education</option>
+            </select>
+        </div>
+        
+        <div class="form-section">
+            <label for="studytime">📚 Weekly Study Time:</label>
+            <select id="studytime" name="studytime" required>
+                <option value="1">&lt; 2 hours</option>
+                <option value="2">2–5 hours</option>
+                <option value="3">5–10 hours</option>
+                <option value="4">&gt; 10 hours</option>
+            </select>
+        </div>
+        
+        <div class="form-section">
+            <div class="radio-group">
+                <label for="schoolsup">🏫 Extra Educational Support:</label>
+                <label><input type="radio" id="schoolsup_yes" name="schoolsup" value="1" required> Yes</label>
+                <label><input type="radio" id="schoolsup_no" name="schoolsup" value="0" required> No</label>
+            </div>
+        </div>
 
-        <label for="absences">Absences:</label>
-        <input type="text" id="absences" name="absences" required><br><br>
+        <div class="form-section">
+            <div class="radio-group">
+                <label for="higher">🎓 Higher Education:</label>
+                <label><input type="radio" id="higher_yes" name="higher" value="1" required> Yes</label>
+                <label><input type="radio" id="higher_no" name="higher" value="0" required> No</label>
+            </div>
+        </div>
 
-        <label for="Fedu">Father's Education:</label>
-        <input type="text" id="Fedu" name="Fedu" required><br><br>
+        <div class="form-section">
+            <div class="radio-group">
+                <label for="internet">🌐 Internet Access:</label>
+                <label><input type="radio" id="internet_yes" name="internet" value="1" required> Yes</label>
+                <label><input type="radio" id="internet_no" name="internet" value="0" required> No</label>
+            </div>
+        </div>
 
-        <label for="studytime">Study Time:</label>
-        <input type="text" id="studytime" name="studytime" required><br><br>
-
-        <label for="schoolsup">Extra Educational Support (1/0):</label>
-        <input type="text" id="schoolsup" name="schoolsup" required><br><br>
-
-        <label for="higher">Higher Education (1/0):</label>
-        <input type="text" id="higher" name="higher" required><br><br>
-
-        <label for="internet">Has Internet Access (1/0):</label>
-        <input type="text" id="internet" name="internet" required><br><br>
-
-        <input type="submit" value="Predict">
+        <input type="submit" value="Predict 🎉">
     </form>
 
     <h3>{{ prediction_text }}</h3>
